@@ -57,14 +57,24 @@ public class UserDAOImpl implements UserDAO {
 
 		KeyHolder holder = new GeneratedKeyHolder();
 
-		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("active", user.getActive())
-				.addValue("cpf", user.getCpf()).addValue("email", user.getEmail())
-				.addValue("fullName", user.getFullName()).addValue("password", user.getPassword())
-				.addValue("resgistreDate", user.getRegistreDate()).addValue("surName", user.getSurName());
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("active", user.getActive())
+				.addValue("cpf", user.getCpf())
+				.addValue("email", user.getEmail())
+				.addValue("fullName", user.getFullName())
+				.addValue("password", user.getPassword())
+				.addValue("resgistreDate", user.getRegistreDate())
+				.addValue("surName", user.getSurName());
 
 		namedJdbcTemplate.update(UserMapper.CREATE_USER, namedParameters, holder);
 
 		return holder.getKeys().get(UserMapper.COLUMN_ID).hashCode();
 
+	}
+
+	@Override
+	public void deleteUser(Integer id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

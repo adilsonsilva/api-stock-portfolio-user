@@ -55,4 +55,13 @@ public class UserServiceImpl implements UserService {
 		return userBuilder.build();
 	}
 
+	@Override
+	public void deleteUser(Integer id) {
+		
+		User user = getUserId(id);
+		
+		userDAO.deleteUser(id);
+		
+	}
+
 }

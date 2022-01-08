@@ -11,4 +11,6 @@ public interface UserDAO {
 	User getUserId(Integer id);
 	
 	Integer createUser(User user);
+
+	void deleteUser(Integer id);
 }

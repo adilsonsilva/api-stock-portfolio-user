@@ -1,0 +1,550 @@
+swagger: '2.0'
+info:
+  description: 'Stock portfolio user management'
+  version: 1.0.0
+  title: Stock portfolio user management
+  contact:
+    name: 'Adilson Rodrigues da Silva'
+    url: 'https://github.com/adilsonsilva/api-stock-portfolio-user.git'
+    email: 'adilson.ro.silva@gmail.com'
+host: www.stock-management.com.br
+basePath: /stock/portifolio/v1
+tags:
+  - name: stock portfolio user management
+    description: 'Stock portfolio user management'
+schemes:
+  - https
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: key
+    in: query
+  OAuth2:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+security:
+  - api_key: []
+    OAuth2: []
+parameters:
+  userId:
+    in: path
+    name: userId
+    required: true
+    type: string
+    description: 'Id user of stock management.'
+  email:
+    in: path
+    name: email
+    required: true
+    type: string
+    description: 'Email user of stock management.'  
+  sorting:
+    in: query
+    name: sorting
+    required: false
+    type: integer
+    minimum: 1
+    description: 'sorting type'
+  skipParam:
+    in: query
+    name: skip
+    required: false
+    type: integer
+    minimum: 0
+    description: 'Number of start record.'
+  limitParam:
+    in: query
+    name: limit
+    required: false
+    type: integer
+    minimum: 1
+    maximum: 100
+    default: 20
+    description: Quantity of records
+responses:
+  200-Ok:
+    description: Successful Request
+    schema:
+      $ref: '#/definitions/Response'
+  201-Create:
+    description: Successful Request
+    schema:
+      $ref: '#/definitions/User'
+  204-NoContent:
+    description: No content responses
+  400-BadRequest:
+    description: Bad request
+    schema:
+      $ref: '#/definitions/ApiError'
+  401-Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/ApiError'
+  403-Forbidden:
+    description: Forbidden
+    schema:
+      $ref: '#/definitions/ApiError'
+  404-NotFound:
+    description: Not found
+    schema:
+      $ref: '#/definitions/ApiError'
+  405-DataInvalid:
+    description: Data input not supplied or invalid
+    schema:
+      $ref: '#/definitions/ApiError'
+  453-BusinessError:
+    description: Business Exception
+    schema:
+      $ref: '#/definitions/BusinessError'
+  500-Exception:
+    description: Internal Server Error
+    schema:
+      $ref: '#/definitions/ApiError'
+paths:
+  /users:
+    get:
+      tags:
+        - Get Users
+      summary: 'Stock portfolio user management active'
+      description: 'Stock portfolio user management active'
+      operationId: getUser
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/sorting'
+        - $ref: '#/parameters/skipParam'
+        - $ref: '#/parameters/limitParam'
+      responses:
+        '200':
+          $ref: '#/responses/200-Ok'
+        '204':
+          $ref: '#/responses/204-NoContent'
+        '400':
+          $ref: '#/responses/400-BadRequest'
+        '401':
+          $ref: '#/responses/401-Unauthorized'
+        '403':
+          $ref: '#/responses/403-Forbidden'
+        '404':
+          $ref: '#/responses/404-NotFound'
+        '405':
+          $ref: '#/responses/405-DataInvalid'
+        '453':
+          $ref: '#/responses/453-BusinessError'
+        '500':
+          $ref: '#/responses/500-Exception'
+      deprecated: false
+    post:
+      tags:
+        - Insert Users
+      summary: 'Stock portfolio user management active'
+      description: 'Stock portfolio user management active'
+      operationId: insertUser
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: InsertUser
+          description: insert user
+          required: true
+          schema:
+            $ref: '#/definitions/RequestInsert'
+      responses:
+        '201':
+          $ref: '#/responses/201-Create'
+        '400':
+          $ref: '#/responses/400-BadRequest'
+        '401':
+          $ref: '#/responses/401-Unauthorized'
+        '403':
+          $ref: '#/responses/403-Forbidden'
+        '404':
+          $ref: '#/responses/404-NotFound'
+        '405':
+          $ref: '#/responses/405-DataInvalid'
+        '453':
+          $ref: '#/responses/453-BusinessError'
+        '500':
+          $ref: '#/responses/500-Exception'
+      deprecated: false
+    put:
+      tags:
+        - Update Users
+      summary: 'Stock portfolio user management active'
+      description: 'Stock portfolio user management active'
+      operationId: updateUser
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: InsertUser
+          description: insert user
+          required: true
+          schema:
+            $ref: '#/definitions/RequestUpdate'
+      responses:
+        '200':
+          $ref: '#/responses/200-Ok'
+        '204':
+          $ref: '#/responses/204-NoContent'
+        '400':
+          $ref: '#/responses/400-BadRequest'
+        '401':
+          $ref: '#/responses/401-Unauthorized'
+        '403':
+          $ref: '#/responses/403-Forbidden'
+        '404':
+          $ref: '#/responses/404-NotFound'
+        '405':
+          $ref: '#/responses/405-DataInvalid'
+        '453':
+          $ref: '#/responses/453-BusinessError'
+        '500':
+          $ref: '#/responses/500-Exception'
+      deprecated: false
+  /users/{userId}:
+    get:
+      tags:
+        - Get Users Ids 
+      summary: 'Stock portfolio user management active for id'
+      description: 'Stock portfolio user management active for id'
+      operationId: getUserId
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/userId'
+        - $ref: '#/parameters/sorting'
+        - $ref: '#/parameters/skipParam'
+        - $ref: '#/parameters/limitParam'
+      responses:
+        '200':
+          $ref: '#/responses/200-Ok'
+        '204':
+          $ref: '#/responses/204-NoContent'
+        '400':
+          $ref: '#/responses/400-BadRequest'
+        '401':
+          $ref: '#/responses/401-Unauthorized'
+        '403':
+          $ref: '#/responses/403-Forbidden'
+        '404':
+          $ref: '#/responses/404-NotFound'
+        '405':
+          $ref: '#/responses/405-DataInvalid'
+        '453':
+          $ref: '#/responses/453-BusinessError'
+        '500':
+          $ref: '#/responses/500-Exception'
+      deprecated: false
+    delete:
+      tags:
+        - Delete for User Id 
+      summary: 'Delete user management active for id'
+      description: 'Delete user management active for id'
+      operationId: deleteUserId
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/userId'
+        - $ref: '#/parameters/sorting'
+        - $ref: '#/parameters/skipParam'
+        - $ref: '#/parameters/limitParam'
+      responses:
+        '204':
+          $ref: '#/responses/204-NoContent'
+        '400':
+          $ref: '#/responses/400-BadRequest'
+        '401':
+          $ref: '#/responses/401-Unauthorized'
+        '403':
+          $ref: '#/responses/403-Forbidden'
+        '404':
+          $ref: '#/responses/404-NotFound'
+        '405':
+          $ref: '#/responses/405-DataInvalid'
+        '453':
+          $ref: '#/responses/453-BusinessError'
+        '500':
+          $ref: '#/responses/500-Exception'
+      deprecated: false
+  /users/findByEmail/{email}:
+    get:
+      tags:
+        - Get Users Email 
+      summary: 'Stock portfolio user management active for email'
+      description: 'Stock portfolio user management active for email'
+      operationId: getUserEmail
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/email'
+      responses:
+        '200':
+          $ref: '#/responses/200-Ok'
+        '204':
+          $ref: '#/responses/204-NoContent'
+        '400':
+          $ref: '#/responses/400-BadRequest'
+        '401':
+          $ref: '#/responses/401-Unauthorized'
+        '403':
+          $ref: '#/responses/403-Forbidden'
+        '404':
+          $ref: '#/responses/404-NotFound'
+        '405':
+          $ref: '#/responses/405-DataInvalid'
+        '453':
+          $ref: '#/responses/453-BusinessError'
+        '500':
+          $ref: '#/responses/500-Exception'
+      deprecated: false
+definitions:
+  ApiError:
+    type: object
+    description: Error API responses
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Error ID
+      message:
+        type: string
+        description: Error Description
+      description:
+        type: string
+        description: Error Details
+      errors:
+        type: array
+        description: Membership Erros
+        items:
+          $ref: '#/definitions/Error'
+  BusinessError:
+    type: object
+    title: BusinessError
+    description: Error API response
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: Error ID
+      message:
+        type: string
+        description: Error Details
+      description:
+        type: string
+        description: Error Details
+      errors:
+        type: array
+        description: Membership Errors
+        items:
+          $ref: '#/definitions/Error'
+      businessNotifications:
+        type: array
+        description: Membership Errors
+        items:
+          $ref: '#/definitions/BusinessNotifications'
+  Error:
+    type: object
+    description: Error Entity
+    properties:
+      code:
+        type: string
+        description: Error ID
+      message:
+        type: string
+        description: Error Description
+      nativeMessage:
+        type: string
+        description: Native Error description
+      trackid:
+        type: string
+        description: (Optional) Track ID of transaction
+  BusinessNotifications:
+    type: object
+    description: Error Entity
+    properties:
+      code:
+        type: string
+        description: Error ID
+      description:
+        type: string
+        description: Error Description
+      type:
+        type: string
+        description: info | warning
+  Response:
+    type: array
+    items:
+      $ref: '#/definitions/User'
+  RequestInsert:
+    title: Request User UI
+    type: object
+    description: Data model user
+    properties:
+      fullName:
+        type: string
+        description: User fists name
+      surName:
+        type: string
+        description: User sur name
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      cpf:
+        type: string
+        description: user document unit
+  RequestUpdate:
+    title: Request User update
+    type: object
+    description: Data model user
+    properties:
+      domain:
+        $ref: "#/definitions/Domain"
+      firtsName:
+        type: string
+        description: User fists name
+      surname:
+        type: string
+        description: user sur name
+      nickName:
+        type: string
+        description: User nick name
+      active:
+        type: boolean
+        description: user active of system
+      profile:
+        type: array
+        items:
+          $ref: '#/definitions/Profile'
+        description: user profile
+  User:
+    title: User
+    type: object
+    description: Data model user
+    properties:
+      domain:
+        $ref: "#/definitions/Domain"
+      firtsName:
+        type: string
+        description: User fists name
+      surname:
+        type: string
+        description: user sur name
+      nickName:
+        type: string
+        description: User nick name
+      contacts: 
+        type: array
+        items:
+          $ref: '#/definitions/Contact'
+        description: contacts (e-mail e phones)
+      cpf:
+        type: string
+        description: user document unit
+      registreDate:
+        type: string
+        example: '2021-09-04'
+        description: user registre date system
+        format: date 
+      active:
+        type: boolean
+        description: user active of system
+      profile:
+        type: array
+        items:
+          $ref: '#/definitions/Profile'
+        description: user profile
+  Contact:
+    title: Contact
+    type: object
+    description: Contact of user
+    properties:
+      contactType:
+        type: array
+        items:
+          $ref: '#/definitions/ContactType'
+      data:
+        description: 'Contact Data'
+        type: string
+  ContactType: 
+    title: Contact Type
+    description: Contact Type
+    type: object
+    properties:
+      id:
+        type: string
+        enum: [phone, cellPhone, business]  
+        example: 'cellPhone'
+      description:
+        description: Description of type Contact
+        type: string    
+        example: 999999999
+  Domain:
+    title: Domain
+    type: object
+    description: Object of Domain Model
+    properties:
+      id:
+        type: integer
+        format: int64  
+        description: Id domain model
+  Profile:
+    title: Profile
+    type: object
+    description: Domain profile
+    properties:
+      profileType:
+        type: string
+        enum: [admin, systemUser]
+        description: Profile type
+      code:
+        type: integer
+        format: int64  
+        description: Profile code
+      permissions:
+        type: array
+        items:
+          $ref: '#/definitions/Permission'
+        description: Profile permission
+  Permission:
+    title: Permission
+    type: object
+    description: Permission of Profile
+    properties:
+      code:
+        type: integer
+        format: int64 
+        description: Permission code
+      function:
+        type: string
+        description: Permission function
+      rule:
+        type: array
+        items:
+          $ref: '#/definitions/Rule'
+        description: Permisson rules
+  Rule:
+    title: Rules
+    type: object
+    description: 'Permisson rules'
+    properties:
+      code:
+        type: integer
+        format: int64
+        description: rule code
+      name:
+        type: string
+        description: rule name
+      active:
+        type: boolean
+        description: rule active
+  

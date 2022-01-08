@@ -1,0 +1,1 @@
+ALTER SCHEMA "m-stock-user" RENAME TO "mStockUser";

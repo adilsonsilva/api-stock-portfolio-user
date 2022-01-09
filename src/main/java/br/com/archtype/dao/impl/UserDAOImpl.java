@@ -1,6 +1,7 @@
 package br.com.archtype.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -18,7 +19,6 @@ import br.com.archtype.dao.UserDAO;
 import br.com.archtype.dao.mapper.UserMapper;
 import br.com.archtype.enumerated.OrderQueryEnum;
 import br.com.archtype.model.entity.User;
-import br.com.archtype.service.impl.InsertUserException;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -35,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<User> getAll(Integer sorting, Integer skip, Integer limit) {
+	public List<Optional<User>> getAll(Integer sorting, Integer skip, Integer limit) {
 
 		final SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("sorting", UserMapper.COLUMN_FULL_NAME.concat(" ").concat(OrderQueryEnum.getOrder(sorting)))
@@ -45,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User getUserId(Integer id) {
+	public Optional<User> getUserId(Integer id) {
 
 		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
 

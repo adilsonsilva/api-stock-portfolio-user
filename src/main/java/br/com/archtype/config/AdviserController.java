@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.archtype.exception.InsertUserException;
 import br.com.archtype.model.entity.APIError;
-import br.com.archtype.service.impl.InsertUserException;
 
 @ControllerAdvice
 public class AdviserController extends ResponseEntityExceptionHandler {

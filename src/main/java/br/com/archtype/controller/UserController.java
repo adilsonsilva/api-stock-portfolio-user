@@ -1,6 +1,7 @@
 package br.com.archtype.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,14 @@ public class UserController {
 	UserService userService;
 
 	@GetMapping
-	public ResponseEntity<List<User>> getUsers(@RequestParam(defaultValue = "1", value = "sorting") Integer sorting,
+	public ResponseEntity<List<Optional<User>>> getUsers(@RequestParam(defaultValue = "1", value = "sorting") Integer sorting,
 			@RequestParam(defaultValue = "20", value = "skip") Integer skip,
 			@RequestParam(defaultValue = "10", value = "limit") Integer limit) {
 		return new ResponseEntity<>(userService.getAll(sorting, skip, limit), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getUserId(@PathVariable Integer id) {
+	public ResponseEntity<Optional<User>> getUserId(@PathVariable Integer id) {
 		return new ResponseEntity<>(userService.getUserId(id), HttpStatus.OK);
 	}
 	
@@ -43,8 +44,9 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<User> deleteUser(@PathVariable Integer id){
-		return new ResponseEntity<>(userService.getUserId(id), HttpStatus.OK);
+	public ResponseEntity<Integer> deleteUser(@PathVariable Integer id){
+		userService.deleteUser(id);
+		return new ResponseEntity<Integer>(id, HttpStatus.OK);
 	}
 	             
 

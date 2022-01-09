@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.jdbc.core.RowMapper;
 
 import br.com.archtype.model.entity.Domain;
 import br.com.archtype.model.entity.User;
 
-public class UserMapper implements RowMapper<User> {
+public class UserMapper implements RowMapper<Optional<User>> {
 
 	public static final String COLUMN_ID = "id_user";
 	public static final String COLUMN_FULL_NAME = "user_full_name";
@@ -37,7 +38,7 @@ public class UserMapper implements RowMapper<User> {
 			+ "VALUES(:fullName, :surName, :resgistreDate, :active, :email, :password, :cpf)";
 
 	@Override
-	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public Optional<User> mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 		Date dateBase = rs.getTimestamp(COLUMN_REGISTRE_DATE);
 		LocalDateTime date = dateBase.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
@@ -53,7 +54,7 @@ public class UserMapper implements RowMapper<User> {
 				.active(rs.getBoolean(COLUMN_STATUS))
 				.build();
 
-		return user;
+		return Optional.of(user);
 	}
 
 }

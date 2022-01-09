@@ -1,4 +1,4 @@
-package br.com.archtype.service.impl;
+package br.com.archtype.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

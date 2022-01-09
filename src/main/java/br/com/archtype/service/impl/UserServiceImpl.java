@@ -2,6 +2,7 @@ package br.com.archtype.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,13 @@ public class UserServiceImpl implements UserService {
 	UserDAO userDAO;
 
 	@Override
-	public List<User> getAll(Integer sorting, Integer skip, Integer limit) {
+	public List<Optional<User>> getAll(Integer sorting, Integer skip, Integer limit) {		
 		return userDAO.getAll(sorting, skip, limit);
 	}
 
 	@Override
-	public User getUserId(Integer id) {
-		return userDAO.getUserId(id);
+	public Optional<User> getUserId(Integer id) {
+		return Optional.ofNullable(userDAO.getUserId(id).orElseThrow(() -> new RuntimeException("No data!")));
 	}
 
 	@Override
@@ -34,34 +35,26 @@ public class UserServiceImpl implements UserService {
 		return preparetedReturn(userBuilder, id);
 	}
 
+	@Override
+	public void deleteUser(Integer id) {
+		getUserId(id);
+		userDAO.deleteUser(id);
+	}
+
 	private User preparetedReturn(User userBuilder, Integer id) {
 
 		User.UserBuilder userReturn = userBuilder.toBuilder();
 
-		Domain domain = Domain.builder()
-								.id(id)
-							.build();
-		userReturn.domain(domain)
-		   .build();
+		Domain domain = Domain.builder().id(id).build();
+		userReturn.domain(domain).build();
 
 		return userReturn.build();
 	}
 
 	private User registreAndActiveUser(User user) {
 		User.UserBuilder userBuilder = user.toBuilder();
-		userBuilder.active(Boolean.TRUE)
-				   .registreDate(LocalDateTime.now())
-			.build();
+		userBuilder.active(Boolean.TRUE).registreDate(LocalDateTime.now()).build();
 		return userBuilder.build();
-	}
-
-	@Override
-	public void deleteUser(Integer id) {
-		
-		User user = getUserId(id);
-		
-		userDAO.deleteUser(id);
-		
 	}
 
 }

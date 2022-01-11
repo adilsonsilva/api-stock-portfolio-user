@@ -36,6 +36,9 @@ public class UserMapper implements RowMapper<Optional<User>> {
 	
 	public static final String CREATE_USER = "INSERT INTO \"mStockUser\".user (user_full_name, user_surname, register_date, status, email, password, cpf) "
 			+ "VALUES(:fullName, :surName, :resgistreDate, :active, :email, :password, :cpf)";
+	
+	public static final String UDPATE_STATUS_USER = "UPDATE \"mStockUser\".user SET status =:active WHERE id_user =:id ";
+	
 
 	@Override
 	public Optional<User> mapRow(ResultSet rs, int rowNum) throws SQLException {

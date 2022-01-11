@@ -74,7 +74,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void deleteUser(Integer id) {
-		// TODO Auto-generated method stub
+	
+		final SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("id", id)
+				.addValue("active", Boolean.FALSE);
+		
+		namedJdbcTemplate.update(UserMapper.UDPATE_STATUS_USER, namedParameters);
 		
 	}
 }

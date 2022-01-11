@@ -18,7 +18,7 @@ class UserServiceTest {
 		
 	@Autowired
 	UserService userService;
-
+	
 	@Test
 	void getUserLimitTeen() {
 		List<Optional<User>> users = userService.getAll(0, 0, 10);
@@ -27,17 +27,23 @@ class UserServiceTest {
 	}
 	
 	@Test
+	void getUserUsers() {
+		Optional<User> user = userService.getUserId(9);
+		assertEquals(9, user.get().getDomain().getId());
+	}
+	
+	@Test
 	void getInsertUser() {
 		try {
 			User user = User.builder()
-					.cpf("09876523410")
-					.email("unittest@teste.com.br")
+					.cpf("13376523415")
+					.email("unittest6@teste.com.br")
 					.fullName("Unit teste")
 					.password("123456")
-					.surName("teste")
+					.surName("teste2")
 					.build();
 			
-			userService.createUser(user);
+			User userReturn = userService.createUser(user);
 		}catch (Exception e) {
 			fail();
 		}
@@ -46,7 +52,7 @@ class UserServiceTest {
 	@Test
 	void getDeleteUser() {
 		try {
-			userService.deleteUser(1);
+			userService.deleteUser(5);
 		}catch (Exception e) {
 			fail();
 		}

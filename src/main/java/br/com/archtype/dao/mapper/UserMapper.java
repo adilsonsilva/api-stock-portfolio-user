@@ -39,6 +39,11 @@ public class UserMapper implements RowMapper<Optional<User>> {
 	
 	public static final String UDPATE_STATUS_USER = "UPDATE \"mStockUser\".user SET status =:active WHERE id_user =:id ";
 	
+	public static final String GET_USER_BY_EMAIL_IS_ACTIVE = "SELECT id_user, user_full_name, user_surname, register_date, status, email, cpf "
+			+ "FROM \"mStockUser\".user " 
+			+ "WHERE email =:email "
+			+ "AND status = true ";
+	
 
 	@Override
 	public Optional<User> mapRow(ResultSet rs, int rowNum) throws SQLException {

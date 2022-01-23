@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
 		getUserId(id);
 		userDAO.deleteUser(id);
 	}
+	
+	@Override
+	public Optional<User> getUserForEmail(String email) {
+		return Optional.ofNullable(userDAO.getUserForEmail(email).orElseThrow(() -> new RuntimeException("No data!")));
+	}	
 
 	private User preparetedReturn(User userBuilder, Integer id) {
 
@@ -56,5 +61,7 @@ public class UserServiceImpl implements UserService {
 		userBuilder.active(Boolean.TRUE).registreDate(LocalDateTime.now()).build();
 		return userBuilder.build();
 	}
+
+	
 
 }

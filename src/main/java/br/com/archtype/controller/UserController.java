@@ -38,6 +38,11 @@ public class UserController {
 		return new ResponseEntity<>(userService.getUserId(id), HttpStatus.OK);
 	}
 	
+	@GetMapping("/{email}")
+	public ResponseEntity<Optional<User>> getUserfroEmail(@PathVariable String email) {
+		return new ResponseEntity<>(userService.getUserForEmail(email), HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<User> createUser(@RequestBody User user){
 		return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);		
@@ -48,6 +53,5 @@ public class UserController {
 		userService.deleteUser(id);
 		return new ResponseEntity<Integer>(id, HttpStatus.OK);
 	}
-	             
-
+	            
 }

@@ -71,6 +71,9 @@ public class UserDAOImpl implements UserDAO {
 		return holder.getKeys().get(UserMapper.COLUMN_ID).hashCode();
 
 	}
+	
+	
+	
 
 	@Override
 	public void deleteUser(Integer id) {
@@ -81,5 +84,13 @@ public class UserDAOImpl implements UserDAO {
 		
 		namedJdbcTemplate.update(UserMapper.UDPATE_STATUS_USER, namedParameters);
 		
+	}
+	
+	@Override
+	public Optional<User> getUserForEmail(String email) {
+
+		final SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("email", email);
+
+		return namedJdbcTemplate.queryForObject(UserMapper.GET_USER_BY_EMAIL_IS_ACTIVE, namedParameters, new UserMapper());
 	}
 }

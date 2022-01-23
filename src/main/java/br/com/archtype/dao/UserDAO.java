@@ -14,4 +14,6 @@ public interface UserDAO {
 	Integer createUser(User user);
 
 	void deleteUser(Integer id);
+	
+	Optional<User> getUserForEmail(String email);
 }
